@@ -24,8 +24,7 @@ namespace Algorithm
     {
         static void Main(string[] args)
         {
-
-
+            TwoNumber_Algorithm.TwoNumber(); 
         }
 
     }
