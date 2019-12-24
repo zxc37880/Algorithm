@@ -15,6 +15,7 @@
 namespace Algorithm
 {
     using System;
+    using System.Collections.Generic;
 
     internal class Backtracking
     {
@@ -74,9 +75,13 @@ namespace Algorithm
         {
             x = new bool[n + 1];
             bestx = new bool[n + 1];
+            List<ObjectX> Q = new List<ObjectX>();
+            double[] a = new double[n + 1];
+            double[] b = new double[n + 1];
 
             for (int i = 0; i < n; i++)
             {
+                Q.Add(new ObjectX { id = i, d = 1.0 * vArray[i] / wArray[i] });
                 sumv += vArray[i];
                 sumw += wArray[i];
             }
@@ -87,15 +92,30 @@ namespace Algorithm
                 Console.WriteLine($"放入購物車物品最大價值:{bestp}");
                 return;
             }
+
+            Q.Sort((x, y) => { return -x.d.CompareTo(y.d); });
+
+            for (int i = 0; i < n; i++)
+            {
+                a[i] = wArray[Q[i].id];
+                b[i] = vArray[Q[i].id];
+            }
+
+            for (int i = 0; i < n; i++)
+            {
+                wArray[i] = a[i];
+                vArray[i] = b[i];
+            }
+
             Backtrack(0);
 
             Console.WriteLine($"放入購物車物品最大價值:{bestp}");
-            Console.Write($"放入購物車物品序號為:");
+            Console.WriteLine($"放入購物車物品組合為:");
             for (int i = 0; i < N; i++)
             {
                 if (bestx[i] == true)
                 {
-                    Console.Write($"第{i+1}個 ");
+                    Console.WriteLine($"{{ W={wArray[i]} V={vArray[i]} }},");
                 }
             }
             Console.WriteLine();
@@ -144,14 +164,28 @@ namespace Algorithm
         /// <param name="i">目前節點</param>
         /// <returns>物品價值(i)+剩餘物品總價值</returns>
         public double Bound(int i)
-        {
-            double rp = 0;
-            while (i <= N)
+        { 
+            //剩餘容量
+            double cleft = W - cw;
+            double brp = 0.0;
+            while (i < N && wArray[i] < cleft)
             {
-                rp += vArray[i];
+                cleft -= wArray[i];
+                brp += vArray[i];
                 i++;
             }
-            return cp + rp;
+
+            if (i < N)
+            {
+                brp += vArray[i] / wArray[i] * cleft;
+            }
+            return cp + brp;
         }
+
+        public class ObjectX
+        {
+            public int id;
+            public double d;
+        } 
     }
 }
