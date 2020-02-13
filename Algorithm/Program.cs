@@ -24,10 +24,15 @@ namespace Algorithm
     {
         static void Main(string[] args)
         {
-            ///TwoNumber_Algorithm.TwoNumber();
-            
+            //TwoNumber_Algorithm.TwoNumber();
+
+            Backtracking_TSP btk_TSP = new Backtracking_TSP();
+            btk_TSP.Main();
+
+            /*
             Backtracking btk = new Backtracking();
             btk.Main();
+            */
         }
 
     }
