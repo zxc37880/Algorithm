@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Backtracking.cs" />
+    <Compile Include="Backtracking_TSP.cs" />
     <Compile Include="TwoNumber_Algorithm.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -70,6 +70,7 @@ namespace Algorithm
                 //到達子節點
                 //推銷貨物的最後一個城市與住地城市有邊相連並且路徑長度比目前最優值小
                 //說明找到了一條更好的路徑，紀錄相關資訊
+                //g[最後一個點,1]!=∞ && cl+g[最後一個點,2]<bestl=∞ 
                 if (g[x[n], 1] != INF && (cl + g[x[n], 1] < bestl))
                 {
                     for (int j = 1; j <= n; j++)
@@ -84,6 +85,8 @@ namespace Algorithm
                 {
                     //搜尋擴展節點的所有分支
                     //如果第t-1個城市與第j個城市有邊相連並且有可能得到更短的路線
+                    //舉例g[1,2] =>城市1到城市2的距離
+                    //g[1,2]!=∞ && cl+g[1,2]<bestl=∞
                     if (g[x[t - 1], x[j]] != INF && (cl + g[x[t - 1], x[j]] < bestl))
                     {
                         //保存第t個要去的城市編號到x[t]中，進入到第t+1層
@@ -145,10 +148,10 @@ namespace Algorithm
             for (int i = 1; i <= n; i++)
             {
                 Console.Write($"{bestx[i]}----->");
-                Console.Write($"----->1");
-                Console.Write($"最短路徑長度: {bestl}");
             }
 
+            Console.WriteLine($"1");
+            Console.WriteLine($"最短路徑長度: {bestl}");
             Console.ReadKey();
         }
     }
